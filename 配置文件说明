@@ -1,0 +1,14 @@
+config.json
+部署后可以调整配置
+{
+  "serviceUrl":"/api",  服务地址
+  "schoolUrl" :"/v2/api-docs", 学校地址
+  "localUrl":"http://localhost:8080", 系统地址
+  "loginUrl": "http://localhost:8080", 登录地址
+  "casUrl": "http://10.20.47.223/cas",  cas 登录
+  "thirdLogin": "http://10.20.47.223/cas/rest", 第三方登录接口（
+  "fileServer": "http://10.20.47.223/fileupload" 文件服务地址
+  "schoolCode":学校代码
+  "schoolName":学校名称
+}
+

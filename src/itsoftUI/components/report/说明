@@ -1,0 +1,186 @@
+iTR（iTReport）报表查询系统
+iTR报表系统有报表设计器itrDesign和报表浏览器itrViewer两部分组成
+核心技术点：vue、elementUi、java（动态查询功能）、mysql（数据视图）
+报表风格样式：DataGrid 表格风格，FreeForm自由风格
+DataGrid 表格风格：
+    1、单个据源，支持表头、表尾部
+    2、实现查询汇总清单、各类单据
+    3、支持自动分页打印、导出功能
+FreeForm自由风格
+    1、支持多数据集合，支持手工书写sql语句
+    2、支持多个表格(table)和多种统计图表
+    3、主要实现各类图表混合统计分析报表
+
+一、报表数据结构
+    //报表类型grid,free
+    Type: "grid",
+    //报表名称
+    Name: "新报表",
+    //页
+    Page: {
+        Width: "210mm",
+        Height: "297mm",
+        RightMargin: "7.62mm",
+        LeftMargin: "7.62mm",
+        TopMargin: "7.62mm",
+        BottomMargin: "7.62mm",
+        Area:[
+            {id:"report-header",name:"Header 头部区域",height:"25.4mm"},
+            {id:"report-detail",name:"Detail 明细区域",height:"9mm"},
+            {id: "report-summary", name: "汇总区域", height: "9mm",Show},
+            {id: "report-group", name: "分组区域", height: "9mm"},
+            {id: "report-footer",name:"Footer 尾部区域",height:"25.4mm"}
+            {id: "report-freeform",name:"自由风格",height:"290mm"}
+        ]
+    },
+    NodeItem: [
+        Area:区域
+        Id:"计算得出唯一值"
+        NodeType:'div','table'
+        DataType:'text','img','line','shape','fx','db','query','table',chart
+        Text:显示数据
+        Value:绑定数据（字段名、内置函数名）主要针对fx，db
+
+        ChartOption:{}配置参数
+        FieldType:字段类型
+        DataSetName 数据源描述
+        DataSetValue 数据源（DataSet ID）
+        StyleValue:{元素样式}
+        ReportId:目标报表Id，自己不能钻取自己
+        QueryParam: 来自目标报表QueryParam
+        BarCode:false,true 是否为展示为二维码,
+        Tables:{ColGroup:[,,,],RowCol:[[{Text:文本,Value:绑定数据,Data:'text'、'db',Type:'text,img,barcode'Height,Span,Colspan,Rowspan}],[],[],]}
+    ],
+    DataSet:[{Id:'唯一标识码',Name:'名称(表）',
+                    Comments:'描述',
+                    Label:'标签',
+                    SelectType: 1 单一模式  2 分组模式
+                    SelectFields:[{Name:名称,Comment:描述，DataType:字段类型,Sort:是否排序}] 字段类型为ComputeField是说明计算列，Name为计算函数}
+                    QueryFields:[Name:字段名称,Comment:描述,DataType:字段类型,QueryParam:对应检索参数]  检索字段
+                    Data:检索后的数据
+                    ]
+
+    QueryParam[{Id:标识码
+                FieldValue:字段名称,
+                FieldType:字段类型
+                ShowLabel:显示标签
+                Required:必填
+                InputType:输入方式 1 手工输入 2 选择
+                Default:默认值
+                DataSource:选择数据来源，主要要针对char型字段 1 手动添加 2 数据字段
+                DataList[{label:,value:}]手动数据列表
+                DictTable:字典表
+                DictLabel:字典标签对应字段
+                DictLValue:字典值对应字段
+                QueryDictText:记录字典选择后label值
+                selectType:radio 单选/check复选
+                 }}],//查询参数
+    RulerXLine[X参考线]
+    RulerYLine[Y参考线]
+    Group 分组
+
+二、报表设计器
+    实现对报表的在线设计
+    区域：头部 明细 尾部
+
+    元素：文本 、图片、表格、线、页码、日期
+三、报表浏览器
+  主要实现报表在线展示、打印、导出等功能
+  为了便于管理，所有报表展示在一个单页来完成 （技术点，vue动态路由添加，解决各模块报表数据的加载问题,已解决）
+  报表显示
+  1、采用组件，页面布局 工具条、查询区域（右侧）工作区（显示区域）便于调用，调用页面可以是单页，可以是弹窗（单据情况下大部分采用弹窗，还有数据钻取）
+  工具条：基本信息（报表名称、所属模块、编辑时间） 工具按钮（打印、打印预览、导出、检索、返回）
+  检索区域：右侧，根据报表检索参数进行布局（要考虑多数据源情况、查询值传递问题）
+  工作区：显示报表
+  组件数据定义：定义传递的参数，报表id（ReportId:'') 查询参数(QueryParam:[ParamName:'',ParamValue:''])
+  报表id是确定哪个报表，查询参数传递默认的查询参数值
+  功能点
+      提取数据（根据查询条件进行查询数据）
+  打印
+  分页（难点）
+四、表格格式报表数据源 DataSource
+单一数据源，来自数据库视图
+DataSource 数据结构说明
+{
+    Name:'名称',
+    Comments:'描述',
+    SelectType: 1 单一模式  2 分组模式
+    SelectFields:[{Name:名称,Comment:描述，DataType:字段类型}] 字段类型为ComputeField是说明计算列，Name为计算函数
+}
+1、数据查询模式：单一查询、分组查询
+    分组查询对查询字段进行分组 group by，并可以添加计算列
+2、需要转换显示在属性设置转换类别，比如单据状态（0、草稿、1入库。。。。），设置后生成相对应的sql case转换语句
+(2这个问题可以可以通过视图建立好，转换好，不需要上面那么复杂了，呵呵：）)
+3、如果来自数据字典，就在视图里完成转换
+4、确定数据列（select），来自DataSet 的 SelectFields
+5、确定查询条件（where），从检索参数和传递参数值生成查询条件，目前检索参数没有设置默认值
+6、确定分组（group by）当SelectType=2时来自SelectFields中的DataType不为ComputeField
+7、检索参数如何传值？主要解决报表之间数据传递问题，比如列表中查询按单据号进行查询单据并打印，比如，报表之间的数据的钻取，这些都要进行检索参数数据值的传递。
+解决方案：此问题是vue前端一个问题，对象传值 query传参
+{
+ReportId:报表Id，
+QueryParam:[{name:名称，value:值}]
+}
+传递方法，先将QueryParam进行编码，作为一个对象传递给报表浏览器，报表浏览器接收后解码
+this.$router.push({path:'/index',query:{
+                       reportid:,
+                       queryparam:[]
+                       }
+                       })
+数据源设置界面实现
+1、弹窗实现
+2、界面元素：选择数据源、原始数据源字段列表（名称、描述、类型）、查询模式（单一、分组）、查询字段、分组字段
+3、布局：头部（选择数据源、查询模式、sum、avg 保存 退出） 左侧（原始数据源字段列表）右侧（选择/分组字段，这里分组显示，把字段和计算列分开显示）
+4、约束条件：
+    当报表引用了数据元素时，是不能修改数据源及模式 SelectType
+    当SelectFields 存在时不允许模式切换和更改数据源，避免误操作把之前选择设置的字段清空，要想切换手工清空字段
+    更改数据源时 SelectType默认1
+    查询数据字段要排除掉已经选择的字段，同一个字段不能多次在查询字段里
+    sum,avg 单一模式下不能使用
+5、实现
+    选择字段 点击原始字段添加按钮完成添加，并清除原始字段
+    添加计算列 从原始字段里提取出能计算的字段，进行选择，命名采用自动命名compute_xxx
+
+五、检索参数：来自数据源集合
+QueryParam 设置的时候有几个问题
+1、选择项目可以支持多选，就不需要全部，如果要全部，做法是不要设置必填项目，清除选择项就是查询全部了
+2、数据来自数据字典，要解决权限问题，比如库房，是有授权要求的
+
+日期类型参数默认值
+{label:'无',value:'none'}
+,{label:'今天',value:'today'},
+{label:'本月',value:'thisMonth'},
+{label:'上月',value:'lastMonth'},
+{label:'本年',value:'thisYear'}
+
+六、内置数据
+ {name: '当前登录用户', value: 'username'},
+ {name: '当前日期', value: 'nowdate'},
+ {name: '当前日期和时间', value: 'nowdatetime'},
+ {name: '页码', value: 'pageindex'},
+ {name: '页数', value: 'pagetotal'},
+ {name: '第N页/共M页', value: 'pageindextotal'},
+ {name: '客户名称', value: 'cname'},
+
+七、数据钻取
+    报表传递参数字段，这些字段必须来自查询字段，非计算列
+报表制作说明
+1、制作表格时，明细区域元素高度要设置为区域高度一样，不然表格有时显示不完全，区域元素的边框为全部
+2、页码高度设置比实际要少设置.4mm，否则会出现空白页（此问题可能是浏览器问题，待续。。。）
+3、数据源 排序可以多个，顺序可以灵活移动
+4、汇总区域添加字段会自动汇总
+八、数据集合（多数据源）
+1、来源：数据库
+2、数据定义
+
+DataSet:"[{TableName:'名称',TableComment:'描述',SqlSelect:'',SqlWhere[{}],SqlGroup:'',SqlOrder'',SqlData;[]}]", //数据集合
+TableName: 数据源数据表名称（加密）
+TableComment:数据源数据表描述
+SqlSelect:sql语句select内容，按照sql语法进行书写，要拆分校验别名用as区分
+SqlWhere:sql查询参数，{Filed:字段名称,QueryParam:对应检索参数FieldValue}
+SqlGroup:sql分组，如果select中存在计算列
+SqlOrder:sql排序，从选择的字段里，计算列不参与排序
+SqlData:存储查询后得到的数据
+
+3、参数传递
+4、数据绑定，针对 数据展示对象，数据集合元素有表格，图表

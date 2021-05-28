@@ -1,0 +1,21 @@
+在页面中配置
+1、引用
+import {getPremission} from "@/itsoftUI/auth/permission"
+2、定义按钮
+toolButtons: [
+                  { text:'新增',auth:'050101',icon:'add'},
+                                      { text:'编辑',auth:'050102',icon:'edit'},
+                                      { text:'删除',auth:'050103',icon:'delete',rightLine:true},
+                                      { text:'导出',auth:'050104',icon:'daochu',rightLine:true},
+                ],
+
+
+3、挂载权限
+created() {
+           //功能权限
+            getPremission(this.toolButtons)
+        }
+4、非按钮触发的，要通过对toolButtons中查找验证，
+例如：双击数据行，要在事件开头加上
+let eidtPremission= this.toolButtons.filter(item=>item.auth==='050102')
+if (eidtPremission && eidtPremission.length>0 && eidtPremission[0].disabled) return false

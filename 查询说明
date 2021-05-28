@@ -1,0 +1,44 @@
+数据库字段命名规则 才有全部小写、中间不能有-或_
+列表查询
+1、用单表进行查询，联合查询用视图去实现
+2、列表展示的列定义（列表、列表设置、列表导出、多条件查询）
+columns: [{},{}]
+prop:           字段名称（与数据库一致）
+label:          显示内容
+sortable:       是否排序
+width:          列表列宽度，无表示自动适应
+visible:        列表中是否可见
+fixed:          是否冻结列
+tooltip:        是否换行，内容溢出后提示
+searchProp:     查询字段名称，完成显示字段和查询字段不一致时，比如，列表中显示部门名称，实际上查询的部门ID
+type:           字段类型[string/number/select/date/table/none] 为none时表示不对此列进行查询
+selectData:     当type=select 数据格式[{value: '采购库', label: '采购库'},{value: '加工库', label: '加工库'}]
+                当type=table 数据格式{ table:表名,filed:查询字段,search:查询条件}
+                例如：数据字典 学历
+                selectData:{table: 'PYkLoj97Lvc5bk8Hs4sN92XPg4CQVIWD4f5CRVCjEaA=', field: 'id value,name label',
+                search:[{ "andOr":"and","searchField":"type","operator":"=","searchValue":"学历"}]}
+max:            字段最大长度,有编辑页面时有用
+
+3、查询条件
+[{ "andOr":"and","searchField":"name","operator":"like","searchValue":"本"}]
+andOr:          逻辑运算符
+searchField:    查询字段
+operator:       运算符 多字段用/分割
+searchValue:    查询内容
+
+
+
+4、rules验证
+                rules: {
+                    name: [{required: true, message: '名称不能为空', trigger: 'change'}],
+                    pricerate: [{validator: isNumber, trigger: 'change'}],
+                }
+                el-form-item 要设置 prop
+
+5、规范
+本地方法：fun方法名称
+组件事件：evt+组件类型+方法名称   evtTableChange
+
+
+常见问题
+1、遇到token失效不跳转说明路由菜单未这是 Auth: "roles",权限

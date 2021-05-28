@@ -1,0 +1,14 @@
+{
+  "serviceUrl": "/api",
+  "localUrl": "http://localhost:8085",
+  "loginUrl": "http://localhost:8085",
+  "schoolUrl": "/school",
+  "casUrl": "",
+  "thirdLogin": "",
+  "casLogoutUrl": "",
+  "fileServer": "https://it.zhhouqin.com/fileupload/",
+  "fileUpdaload": "https://it.zhhouqin.com/api/file/upload",
+  "schoolCode": "10618",
+  "schoolName": "陕西师范大学",
+  "systemUrl": "https://it.zhhouqin.com/"
+}

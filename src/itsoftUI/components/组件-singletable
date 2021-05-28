@@ -1,0 +1,40 @@
+一、singleTable  单一列表
+1、功能：主要实现工具条条、表格、分页、设置、导出、查询综合查询
+2、属性
+table-name              数据表名称，对应数据库，加密产生
+tool-buttons            工具条按钮
+list-name               列表名称，用于本地存储KEY
+default-order           默认排序,可以为组合排序
+columns                 表格列
+quick-query-field       快捷查询字段
+quick-query-field-name  快捷查询字段中文描述
+export-file-name        导出文件前缀
+show-page               是否分页                        默认false
+例:
+列 columns: [{},{}...]
+prop:           字段名称（与数据库一致）
+label:          显示内容
+sortable:       是否排序
+width:          列表列宽度，无表示自动适应
+visible:        列表中是否可见
+fixed:          是否冻结列
+tooltip:        是否换行，内容溢出后提示
+searchProp:     查询字段名称，完成显示字段和查询字段不一致时，比如，列表中显示部门名称，实际上查询的部门ID
+type:           字段类型[string/number/select/date/table/none] 为none时表示不对此列进行查询
+selectData:     当type=select 数据格式[{value: '采购库', label: '采购库'},{value: '加工库', label: '加工库'}]
+                当type=table 数据格式{ table:表名,filed:查询字段,search:查询条件}
+                例如：数据字典 学历
+                selectData:{table: 'PYkLoj97Lvc5bk8Hs4sN92XPg4CQVIWD4f5CRVCjEaA=', field: 'id value,name label',
+                search:[{ "andOr":"and","searchField":"type","operator":"=","searchValue":"学历"}]}
+max:            字段最大长度,有编辑页面时有用
+align:          文本对齐方式
+工具条按钮 tool-buttons [{},{}...]
+text            文本
+icon            图标
+rightLine       右分割线        false
+leftLine        左分割线        false
+disabled        禁用            false
+remind          红点提示        false
+title           提示语
+3、方法
+edit            新增/编辑事件，来自按钮

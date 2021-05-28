@@ -1,0 +1,28 @@
+参数分为 系统参数、配置参数、运行参数
+一、系统参数
+1、系统参数系统在开发环境进行配置的参数
+2、发布前修改，发布后不能修改
+3、存储在src/settings
+4、在main.js中完成获取存储在itsoftUI.config
+5、参数说明
+  title: '智能客服', 标题
+  cookieKey:'ITSOFT-WILAB-SESSION', 本地cookie的KEY
+  clientId:'web201911chengdu', 客户端ID
+  clientSecret:'bf8ec0449942e7f4', 客户端密钥
+  ver:'1.0.0' 版本
+二、配置参数
+1、配置参数从服务上存储配置文件中获取
+2、存储路径发布文件夹下config.json
+3、参数说明
+{
+  "serviceUrl":"/api", 服务地址
+  "localUrl":"http://localhost:8081", 本地url地址
+  "loginUrl": "http://localhost:8080", 登录中心url地址
+  "fileServer": "http://10.20.47.223/fileupload",静态文件服务器地址
+  "schoolCode":"10718" 学校代码
+}
+4、在main.js中完成获取存储在itsoftUI.config
+5、程序发布后可进行修改
+三、运行参数
+1、为系统运行时客户可修改的参数
+2、后台尽量用缓存进行存储
