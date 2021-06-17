@@ -4,20 +4,20 @@
 import Layout from '@/views/layout/Layout'
 import itReportLayout from '@/views/layout/itReportLayout'
 const convenientRouter = {
-    path: "/convenient",
+    path: "/areaManager",
     component: Layout,
-    name: "Convenient",
+    name: "areaManager",
     meta: {
         title: "便捷入口管理",
-        parent: "convenient",
+        parent: "areaManager",
         icon: "el-icon-message",
         Auth: "login"
     },
-    redirect: "/convenient/index",
+    redirect: "/areaManager/index",
     children: [
         {
-            path: "/convenient/index",
-            component: () => import("@/views/convenient/index"),
+            path: "/areaManager/index",
+            component: () => import("@/views/areaManager/index"),
             name: "HomeApplication",
             meta: {
                 title: "便捷入口管理",

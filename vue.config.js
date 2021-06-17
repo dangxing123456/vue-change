@@ -17,7 +17,7 @@ module.exports = {
     lintOnSave: process.env.NODE_ENV === 'development',
     // 如果你不需要生产环境的 source map，可以将其设置为 false 以加速生产环境构建。
     productionSourceMap: false,
-    publicPath: process.env.NODE_ENV === 'production' ? '/account/' : '/',
+    publicPath: process.env.NODE_ENV === 'production' ? '/exchange/' : '/',
     // webpack-dev-server 相关配置
     devServer: {
         host: '0.0.0.0',
@@ -26,7 +26,7 @@ module.exports = {
             // detail: https://cli.vuejs.org/config/#devserver-proxy
             '/api': {
                 // target: 'http://10.2.42.166:8080/',
-                target: 'https://it.zhhouqin.com',
+                target: 'https://www.peiyoung.com',
                 changeOrigin: true,
                 ws: true
             }

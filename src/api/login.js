@@ -5,8 +5,8 @@ import {
 import request from '@/itsoftUI/utils/request'
 import qs from "qs"
 import Cookies from 'js-cookie'
-const loginUrl = Vue.prototype.$itsoftUI.config.serviceUrl + "/auth"
-const baseUrl = Vue.prototype.$itsoftUI.config.serviceUrl + "/auth/user"
+const loginUrl = Vue.prototype.$itsoftUI.config.serviceUrl + "/exchange"
+const baseUrl = Vue.prototype.$itsoftUI.config.serviceUrl + "/exchange/user"
 const clientId = Vue.prototype.$itsoftUI.config.clientId
 const clientSecret = Vue.prototype.$itsoftUI.config.clientSecret
 const thirdLogin = Vue.prototype.$itsoftUI.config.thirdLogin
@@ -56,6 +56,7 @@ export function logout() {
 
 // 获取验证码
 export function getCodeImg() {
+    console.log(loginUrl);
     return request({
         url: loginUrl + '/login/captchaImage',
         method: 'get'

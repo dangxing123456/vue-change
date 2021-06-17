@@ -4,20 +4,20 @@
 import Layout from '@/views/layout/Layout'
 import itReportLayout from '@/views/layout/itReportLayout'
 const problemRouter = {
-    path: "/problem",
+    path: "/dictionary",
     component: Layout,
-    name: "Problem",
+    name: "Dictionary",
     meta: {
         title: "问题管理",
-        parent: "problem",
+        parent: "dictionary",
         icon: "el-icon-message",
         Auth: "login"
     },
-    redirect: "/problem/index",
+    redirect: "/dictionary/index",
     children: [
         {
-            path: "/problem/index",
-            component: () => import("@/views/problem/index"),
+            path: "/dictionary/index",
+            component: () => import("@/views/dictionary/index"),
             name: "SystemModule",
             meta: {
                 title: "问题管理",

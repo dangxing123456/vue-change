@@ -741,7 +741,7 @@ export default {
       this.userAll.forEach((el) => {
         if (el.account === item.value) {
           this.formData = el;
-          this.formData.systemcode = "customer ";
+          this.formData.systemcode = "exchange ";
         }
       });
     },
@@ -753,7 +753,7 @@ export default {
           break;
         case "新增":
           // this.getUserList();
-          let sysytemCode = "customer ";
+          let sysytemCode = "exchange ";
           this.selectLoading = true;
           let pageSize = 9999;
           let pageIndex = 1;
@@ -850,7 +850,7 @@ export default {
         andOr: "and",
         searchField: "systemcode",
         operator: "=",
-        searchValue: "customer ",
+        searchValue: "exchange ",
       });
       //加入默认查询
       search.unshift(this.defaultSearch);
@@ -1066,12 +1066,12 @@ export default {
       let tabName = "0LxAqbYeOhsr3ctBq6bqyQ==";
       GetUserInfo(this.selectCurrentRow.id, tabName).then((res) => {
         this.formData = res.data;
-        this.formData.systemcode = "customer ";
+        this.formData.systemcode = "exchange ";
         this.innerVisible = false;
       });
     },
     getUserList() {
-      let sysytemCode = "customer ";
+      let sysytemCode = "exchange ";
       this.selectLoading = true;
       let pageSize = this.SelectPageSize;
       let pageIndex = this.selectCurrentPage;
@@ -1084,7 +1084,7 @@ export default {
       );
     },
     searchClick() {
-      let sysytemCode = "customer ";
+      let sysytemCode = "exchange ";
       this.selectLoading = true;
       let pageSize = this.SelectPageSize;
       let pageIndex = this.selectCurrentPage;
@@ -1149,7 +1149,7 @@ export default {
       this.tab = 1;
       if (val) {
         //编辑提取基本信息
-        let systemCode = "customer ";
+        let systemCode = "exchange ";
         apiUser.Get(val.id, systemCode).then((res) => {
           if (res.data) {
             this.formData = res.data;
@@ -1223,7 +1223,7 @@ export default {
           andOr: "and",
           searchField: "systemcode",
           operator: "=",
-          searchValue: "customer ",
+          searchValue: "exchange ",
         });
         //加入默认查询
         search.unshift(this.defaultSearch);
@@ -1259,7 +1259,7 @@ export default {
         apiUser
           .Edit(this.formData)
           .then((edit) => {
-            let systemCode = "customer ";
+            let systemCode = "exchange ";
             apiUser.Get(edit.data.id, systemCode).then((res) => {
               this.$message.success("提交成功");
               let user = res.data;

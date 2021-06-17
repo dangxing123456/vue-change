@@ -71,38 +71,40 @@ getConfig().then(res => {
     Vue.prototype.$serviceUrl = res.serviceUrl
     localStorage.removeItem("USER_INFO")
     Vue.prototype.$itsoftUI.getUserInfo(true).then(res => {
+        console.log(res);
         Vue.prototype.$userStatus = res.password
         //学校代码
         Vue.prototype.$itsoftUI.config.schoolCode = res.schoolCode
         Vue.prototype.$itsoftUI.config.schoolName = res.schoolName
         let roles = JSON.parse(res.auth)
-        Vue.prototype.$systemMenu = [
-            {
-                "name": "知识库",
-                "url": "/repository",
-                "isOpen": "true"
-            },
-            {
-                "name": "便捷入口管理",
-                "url": "/convenient",
-                "isOpen": "true"
-            },
-            {
-                "name": "问题管理",
-                "url": "/problem",
-                "isOpen": "true"
-            },
-            {
-                "name": "数据概况",
-                "url": "/profileData"
-            },
-            {
-                "name": "系统管理",
-                "url": "/system"
-            },
-
-        ]
         if (roles.length > 0) {
+            Vue.prototype.$systemMenu = [
+                {
+                    "name": "区域信息",
+                    "url": "/areaInfo",
+                    "isOpen": "true"
+                },
+                {
+                    "name": "区域管理",
+                    "url": "/areaManager",
+                    "isOpen": "true"
+                },
+                {
+                    "name": "字典表",
+                    "url": "/dictionary",
+                    "isOpen": "true"
+                },
+                {
+                    "name": "商铺类型",
+                    "url": "/shop",
+                    "isOpen": "true"
+                },
+                {
+                    "name": "系统管理",
+                    "url": "/system"
+                },
+
+            ]
             //加载权限      
             let roleList = []
             router.options.routes.filter(item => item.children && item.meta && item.meta.Auth).forEach(function (item) {
@@ -121,7 +123,6 @@ getConfig().then(res => {
                         roleList.push(c.meta.Auth)
                         c.meta.authorize = roles.indexOf(c.meta.Auth) >= 0
                     })
-                    console.log(item)
                 }
             })
         } else {

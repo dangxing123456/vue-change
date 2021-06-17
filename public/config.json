@@ -1,7 +1,7 @@
 {
   "serviceUrl": "/api",
-  "localUrl": "http://localhost:8085",
-  "loginUrl": "http://localhost:8085",
+  "localUrl": "http://localhost:8089",
+  "loginUrl": "http://localhost:8089",
   "schoolUrl": "/school",
   "casUrl": "",
   "thirdLogin": "",

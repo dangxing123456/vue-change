@@ -15,7 +15,7 @@ export function List(search, order, page, table, fields, groupby) {
         groupby
     }
     return request({
-        url: Vue.prototype.$serviceUrl + '/auth/common/list',
+        url: Vue.prototype.$serviceUrl + '/exchange/common/list',
         method: 'post',
         data: qs.stringify(data)
     })
@@ -38,7 +38,7 @@ export function SelectList(systemCode, pageSize, pageIndex, account, enablePagin
         enablePaging
     }
     return request({
-        url: Vue.prototype.$itsoftUI.config.serviceUrl + '/auth/user/v2/selectUserList',
+        url: Vue.prototype.$itsoftUI.config.serviceUrl + '/exchange/user/v2/selectUserList',
         method: 'post',
         data: qs.stringify(data)
     })
@@ -46,7 +46,7 @@ export function SelectList(systemCode, pageSize, pageIndex, account, enablePagin
 export function SystemBaseinfoList() {
     const data = {}
     return request({
-        url: Vue.prototype.$itsoftUI.config.serviceUrl + '/auth/user/systemBaseinfoList',
+        url: Vue.prototype.$itsoftUI.config.serviceUrl + '/exchange/user/systemBaseinfoList',
         method: 'post',
         data: qs.stringify(data)
     })
@@ -56,7 +56,7 @@ export function Check(account) {
         account
     }
     return request({
-        url: Vue.prototype.$itsoftUI.config.serviceUrl + '/auth/user/check',
+        url: Vue.prototype.$itsoftUI.config.serviceUrl + '/exchange/user/check',
         method: 'post',
         data: qs.stringify(data)
     })
@@ -68,7 +68,7 @@ export function GetUserInfo(id, table) {
         table
     }
     return request({
-        url: Vue.prototype.$itsoftUI.config.serviceUrl + '/auth/common/get',
+        url: Vue.prototype.$itsoftUI.config.serviceUrl + '/exchange/common/get',
         method: 'post',
         data: qs.stringify(data)
     })
@@ -80,7 +80,7 @@ export function ListSearch(search, table, fields) {
         fields
     }
     return request({
-        url: Vue.prototype.$serviceUrl + '/auth/common/list',
+        url: Vue.prototype.$serviceUrl + '/exchange/common/list',
         method: 'post',
         data: qs.stringify(data)
     })
@@ -92,7 +92,7 @@ export function Del(ids, table) {
         table
     }
     return request({
-        url: Vue.prototype.$serviceUrl + '/auth/common/del',
+        url: Vue.prototype.$serviceUrl + '/exchange/common/del',
         method: 'post',
         data: qs.stringify(data)
     })
@@ -105,7 +105,7 @@ export function Get(id, table) {
         table
     }
     return request({
-        url: Vue.prototype.$serviceUrl + '/auth/common/get',
+        url: Vue.prototype.$serviceUrl + '/exchange/common/get',
         method: 'post',
         data: qs.stringify(data)
     })

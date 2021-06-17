@@ -44,7 +44,7 @@
   "license": "LGPL-2.1",
   "main": "tinymce.js",
   "name": "tinymce",
-  "repository": {
+  "areaInfo": {
     "type": "git",
     "url": "git+https://github.com/tinymce/tinymce-dist.git"
   },

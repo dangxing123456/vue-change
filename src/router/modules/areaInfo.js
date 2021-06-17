@@ -4,20 +4,20 @@
 import Layout from '@/views/layout/Layout'
 import itReportLayout from '@/views/layout/itReportLayout'
 const repositoryRouter = {
-    path: "/repository",
+    path: "/areaInfo",
     component: Layout,
-    name: "repository",
+    name: "areaInfo",
     meta: {
         title: "知识库管理",
-        parent: "repository",
+        parent: "areaInfo",
         icon: "el-icon-message",
         Auth: "login"
     },
-    redirect: "/repository/index",
+    redirect: "/areaInfo/index",
     children: [
         {
-            path: "/repository/index",
-            component: () => import("@/views/repository/index"),
+            path: "/areaInfo/index",
+            component: () => import("@/views/areaInfo/index"),
             name: "HomeApplication",
             meta: {
                 title: "",

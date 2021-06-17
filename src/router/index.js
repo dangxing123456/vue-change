@@ -7,10 +7,10 @@ import HomeLayout from '@/views/layout/homeLayout'
 /* Router Modules 路由模块 */
 
 import systemRouter from './modules/system'
-import repositoryRouter from "./modules/repository"
-import problemRouter from "./modules/problem"
-import convenientRouter from "./modules/convenient"
-import profileDataRouter from "./modules/profileData"
+import repositoryRouter from "./modules/areaInfo"
+import problemRouter from "./modules/dictionary"
+import convenientRouter from "./modules/areaManager"
+import profileDataRouter from "./modules/shop"
 export const constantRoutes = [{
     path: '/redirect',
     component: HomeLayout,
@@ -86,8 +86,8 @@ export const constantRoutes = [{
 ]
 const createRouter = () => new Router({
     mode: 'history', // require service support
-    base: '/account/',
-    code: 'account', //系统授权代码
+    base: '/exchange/',
+    code: 'exchange', //系统授权代码
     scrollBehavior: () => ({
         y: 0
     }),

@@ -150,7 +150,7 @@ import { apiRoles } from "@/api/user/roles";
 import router from "@/router/index";
 import { getPremission } from "@/itsoftUI/auth/permission";
 import { apiSystemMenu } from "@/api/system/menu";
-const SystemCode = "customer ";
+const SystemCode = "exchange ";
 export default {
   name: "roleList",
   data() {

@@ -17,70 +17,14 @@
             </div>
           </transition>
           <transition name="el-zoom-in-center">
-            >
             <div class="header-system" v-show="vShow.opened">
-              <el-dropdown trigger="click">
-                <div>
-                  <div class="header-system-title">智能客服</div>
-                  <i class="el-icon-caret-bottom" />
-                </div>
-                <el-dropdown-menu
-                  slot="dropdown"
-                  class="header-system-menu"
-                  style="width: 100%; height: auto"
-                >
-                  <el-row
-                    :gutter="20"
-                    style="
-                      width: 100%;
-                      overflow: hidden;
-                      height: auto;
-                      margin-bottom: 10px;
-                    "
-                  >
-                    <el-col
-                      :span="3"
-                      v-for="(item, index) in baseinfoList.filter(
-                        (r) => r.code != 'customer'
-                      )"
-                      :key="index"
-                    >
-                      <div
-                        style="width: 100%"
-                        class="menu-system"
-                        @click="goSystem(item)"
-                      >
-                        <div class="img">
-                          <img
-                            :src="$itsoftUI.config.fileServer + item.icon"
-                            alt
-                            srcset
-                          />
-                          <div style="margin: 6px 0">{{ item.name }}</div>
-                        </div>
-                      </div>
-                    </el-col>
-                  </el-row>
-                </el-dropdown-menu>
-              </el-dropdown>
+              <div>
+                <div class="header-system-title">易物</div>
+                <i class="el-icon-caret-bottom" />
+              </div>
             </div>
           </transition>
         </div>
-        <!-- <transition name="el-fade-in">
-          <el-menu
-            v-show="vShow.opened"
-            :default-active="defaultActive"
-            router
-            class="header-nav-menu"
-            mode="horizontal"
-            @select="handleSelect"
-            background-color="#262626"
-            text-color="#f7f7f7"
-            active-text-color="#ffd04b"
-          >
-            <el-menu-item v-for="(item,index) in nav" :key="index" :index="item.url">{{item.name}}</el-menu-item>
-          </el-menu>
-        </transition>-->
         <ul class="header-right" style="float: left" v-show="vShow.opened">
           <li
             v-for="(item, index) in nav"
@@ -242,7 +186,6 @@
         </transition>
       </el-col>
     </el-row>
-
     <!--        <el-button type="text" @click="logout">退出</el-button>-->
   </el-header>
 </template>
@@ -251,7 +194,7 @@
 import screenfull from "screenfull";
 import { mapGetters } from "vuex";
 import Config from "@/itsoftUI/config";
-import { SystemBaseinfoList } from "../../api/user/usercommon";
+// import { SystemBaseinfoList } from "../../api/user/usercommon";
 import Vue from "vue";
 export default {
   name: "index",
@@ -380,12 +323,12 @@ export default {
   },
   created() {
     this.getUserInfo();
-    SystemBaseinfoList().then((res) => {
-      this.baseinfoList = res;
-    });
+    // SystemBaseinfoList().then((res) => {
+    //   this.baseinfoList = res;
+    // });
     this.routes = this.$router.options.routes;
 
-    console.log(this.routes);
+    console.log(Vue.prototype.$systemMenu);
   },
   mounted() {
     this.fullscreenInit();
@@ -407,18 +350,17 @@ export default {
         }
         return meta.activeMenu;
       }
-      if (path.indexOf("/problem/") >= 0) {
-        return "/problem";
-      } else if (path.indexOf("/repository/") >= 0) {
-        return "/repository";
-      } else if (path.indexOf("/convenient/") >= 0) {
-        return "/convenient";
-      } else if (path.indexOf("/profileData/") >= 0) {
-        return "/profileData";
+      if (path.indexOf("/dictionary/") >= 0) {
+        return "/dictionary";
+      } else if (path.indexOf("/areaInfo/") >= 0) {
+        return "/areaInfo";
+      } else if (path.indexOf("/areaManager/") >= 0) {
+        return "/areaManager";
+      } else if (path.indexOf("/shop/") >= 0) {
+        return "/shop";
       } else if (path.indexOf("/system/") >= 0) {
         return "/system";
       }
-      return "/system";
 
       return "";
     },

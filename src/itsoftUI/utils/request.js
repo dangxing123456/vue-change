@@ -61,9 +61,10 @@ service.interceptors.response.use(
             } else {
                 let errorCode = response.data.errorCode
                 if (errorCode >= 4010 && errorCode <= 4014) {
+                    alert(errorCode)
                     //登录失效 重新登录
-                    Token.localLogout()
-                    window.location.reload()
+                    // Token.localLogout()
+                    // window.location.reload()
                 } else {
                     Message({
                         showClose: true,

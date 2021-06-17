@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import request from '@/itsoftUI/utils/request'
 import qs from "qs";
-const baseUrl = Vue.prototype.$itsoftUI.config.serviceUrl + "/auth"
+const baseUrl = Vue.prototype.$itsoftUI.config.serviceUrl + "/exchange"
 const apiUser = {
     //列表
     List: function (search, fields, order, page) {
@@ -12,7 +12,7 @@ const apiUser = {
             page
         }
         return request({
-            url: baseUrl + '/user/list',
+            url: baseUrl + '/user/getUserInfoForManager',
             method: 'post',
             data: qs.stringify(data)
         })
@@ -37,7 +37,7 @@ const apiUser = {
             schoolCode
         }
         return request({
-            url: '/api/auth/user/userRolesAuthorizeList',
+            url: '/api/exchange/user/userRolesAuthorizeList',
             method: 'post',
             data: qs.stringify(data)
         })

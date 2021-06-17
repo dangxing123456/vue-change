@@ -64,7 +64,7 @@ export default {
         } else {
             if (!this.isLogin()) return ""
             await request({
-                url: Config.serviceUrl + '/auth/user/info',
+                url: Config.serviceUrl + '/exchange/user/info',
                 method: 'get'
             }).then(res => {
                 localStorage.setItem("USER_INFO", Encrypt(JSON.stringify(res.data)))
@@ -75,21 +75,22 @@ export default {
         if (auth) {
             //用户权限
             const data = {
-                systemCode: "customer ",
+                systemCode: "exchange ",
                 userId: userInfo.id,
                 schoolCode: userInfo.schoolcode
             }
             await request({
-                url: Config.serviceUrl + '/auth/user/userRolesAuthorizeList',
+                url: Config.serviceUrl + '/exchange/user/userRolesAuthorizeList',
                 method: 'post',
                 data: qs.stringify(data)
             }).then(res => {
                 // console.log(res.data)
                 // console.log(res.data[0].authorize)
-
-                if (res.data.length > 0) {
-                    userInfo.auth = res.data[0].authorize
-                }
+                console.log(res);
+                // if (res.data.length > 0) {
+                userInfo.auth = res.data.authorize
+                console.log(userInfo);
+                // }
             })
         }
         return userInfo
@@ -105,7 +106,7 @@ export default {
         }
 
         request({
-            url: Config.serviceUrl + '/auth/user/userRolesAuthorizeList',
+            url: Config.serviceUrl + '/exchange/user/userRolesAuthorizeList',
             method: 'post',
             data: qs.stringify(data)
         }).then(res => {
@@ -119,7 +120,7 @@ export default {
     logout() {
         //退出
         request({
-            url: Config.serviceUrl + '/auth/user/logout',
+            url: Config.serviceUrl + '/exchange/user/logout',
             method: 'get'
         }).then(res => {
             this.localLogout()

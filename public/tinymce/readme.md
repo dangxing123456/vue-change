@@ -6,7 +6,7 @@ Trusted and loved by millions of developers, and integrated into thousands of ap
 
 - Content management systems (CMSs)
 - Learning management systems (LMSs)
-- Customer relationship management (CRM) and marketing automation systems
+- exchange relationship management (CRM) and marketing automation systems
 - Email marketing systems
 - Content creation in SaaS systems
 
